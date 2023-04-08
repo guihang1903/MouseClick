@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             StartClick = new Button();
             IntervalTime = new TextBox();
             label1 = new Label();
@@ -171,9 +172,10 @@
             Controls.Add(label1);
             Controls.Add(IntervalTime);
             Controls.Add(StartClick);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             Name = "Form1";
-            Text = "鼠标点击";
+            Text = "鼠标连点器 By袁鹏";
             FormClosing += Form1_FormClosing;
             ResumeLayout(false);
             PerformLayout();
