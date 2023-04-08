@@ -89,6 +89,8 @@ namespace MouseClick
                     startTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     radioLeft.Enabled = false;
                     radioRgiht.Enabled = false;
+                    IntervalTime.Enabled = false;
+                    clickCount.Enabled = false;
                     EndClick.Enabled = true;
                     StartClick.Enabled = false;
 
@@ -137,6 +139,8 @@ namespace MouseClick
                 startTime.Text = "";
                 radioLeft.Enabled = true;
                 radioRgiht.Enabled = true;
+                IntervalTime.Enabled = true;
+                clickCount.Enabled = true;
                 EndClick.Enabled = false;
                 StartClick.Enabled = true;
                 isRunning = false;
