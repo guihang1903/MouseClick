@@ -1,1 +1,2 @@
-# Êó±êÁ¬µãÆ÷
+# winFrom
+# Continuous mouse click tool
