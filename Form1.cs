@@ -10,7 +10,7 @@ namespace MouseClick
             mesg.Text = "";
             startTime.Text = "";
             lastEndTime.Text = "";
-            clickNumber.Text = "0";
+            clickNumber.Text = "";
             // 设置键盘钩子
             _keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookCallback, IntPtr.Zero, 0);
         }
@@ -49,6 +49,7 @@ namespace MouseClick
         private IntPtr _keyboardHook;
         //语言设置
         private string language = "chinese";
+        //统计点击次数
         private long clickNum = 0;
 
         // 键盘钩子回调函数
@@ -95,6 +96,7 @@ namespace MouseClick
                     isStart = true;
                     mesg.Text = "";
                     clickNum = 0;
+                    clickNumber.Text = "";
                     startTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     radioLeft.Enabled = false;
                     radioRgiht.Enabled = false;
@@ -106,34 +108,68 @@ namespace MouseClick
                     int delay = int.Parse(IntervalTime.Text);
 
                     isRunning = true;
+
+                    //判断是否限制点击次数
                     if (clickCount.Text.Length > 0)
                     {
                         int count = int.Parse(clickCount.Text);
-                        Task.Run(() =>
+                        //判断是否开启数字统计，抽离到外面这里是为了增加性能 不用每次点击都判断是否开启
+                        if (clickNumCheckBox.Checked)
                         {
-                            while (isRunning && count > 0)
+                            Task.Run(() =>
                             {
-                                mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
-                                mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                Task.Delay(delay).Wait();
-                                count--;
-                                clickNumber.Text = (++clickNum).ToString();
-                            }
-                            EndClick.PerformClick();
-                        });
+                                while (isRunning && count > 0)
+                                {
+                                    mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
+                                    mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
+                                    Task.Delay(delay).Wait();
+                                    count--;
+                                    clickNumber.Text = (++clickNum).ToString();
+                                }
+                                EndClick.PerformClick();
+                            });
+                        }
+                        else {
+                            Task.Run(() =>
+                            {
+                                while (isRunning && count > 0)
+                                {
+                                    mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
+                                    mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
+                                    Task.Delay(delay).Wait();
+                                    count--;
+                                }
+                                EndClick.PerformClick();
+                            });
+                        }
                     }
                     else
                     {
-                        Task.Run(() =>
+                        //判断是否开启数字统计，抽离到外面这里是为了增加性能 不用每次点击都判断是否开启
+                        if (clickNumCheckBox.Checked)
                         {
-                            while (isRunning)
+                            Task.Run(() =>
                             {
-                                mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
-                                mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                Task.Delay(delay).Wait();
-                                clickNumber.Text = (++clickNum).ToString();
-                            }
-                        });
+                                while (isRunning)
+                                {
+                                    mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
+                                    mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
+                                    Task.Delay(delay).Wait();
+                                    clickNumber.Text = (++clickNum).ToString();
+                                }
+                            });
+                        }
+                        else {
+                            Task.Run(() =>
+                            {
+                                while (isRunning)
+                                {
+                                    mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
+                                    mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
+                                    Task.Delay(delay).Wait();
+                                }
+                            });
+                        }
                     }
                 }
                 else
@@ -186,6 +222,8 @@ namespace MouseClick
             label4.Text = "开始时间";
             label5.Text = "点击次数";
             label6.Text = "上次结束时间";
+            label7.Text = "毫秒";
+            clickNumCheckBox.Text = "开启统计";
             radioLeft.Text = "左键";
             radioRgiht.Text = "右键";
             StartClick.Text = "开始点击(F9)";
@@ -204,6 +242,8 @@ namespace MouseClick
             label4.Text = "Start time";
             label5.Text = "Click number";
             label6.Text = "Last stoptime";
+            label7.Text = "ms";
+            clickNumCheckBox.Text = "Statistics";
             radioLeft.Text = "Left";
             radioRgiht.Text = "Right";
             StartClick.Text = "Start(F9)";

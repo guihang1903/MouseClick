@@ -54,13 +54,15 @@
             lastEndTime = new Label();
             label5 = new Label();
             clickNumber = new Label();
+            label7 = new Label();
+            clickNumCheckBox = new CheckBox();
             contextMenuStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // StartClick
             // 
-            StartClick.Location = new Point(137, 146);
+            StartClick.Location = new Point(151, 146);
             StartClick.Name = "StartClick";
             StartClick.Size = new Size(105, 30);
             StartClick.TabIndex = 0;
@@ -72,7 +74,7 @@
             // 
             IntervalTime.Location = new Point(88, 38);
             IntervalTime.Name = "IntervalTime";
-            IntervalTime.Size = new Size(154, 23);
+            IntervalTime.Size = new Size(87, 23);
             IntervalTime.TabIndex = 1;
             IntervalTime.Text = "1000";
             // 
@@ -89,7 +91,7 @@
             // 
             radioLeft.AutoSize = true;
             radioLeft.Checked = true;
-            radioLeft.Location = new Point(168, 105);
+            radioLeft.Location = new Point(182, 105);
             radioLeft.Name = "radioLeft";
             radioLeft.Size = new Size(74, 21);
             radioLeft.TabIndex = 3;
@@ -159,7 +161,7 @@
             // 
             clickCount.Location = new Point(88, 74);
             clickCount.Name = "clickCount";
-            clickCount.Size = new Size(154, 23);
+            clickCount.Size = new Size(87, 23);
             clickCount.TabIndex = 10;
             // 
             // label2
@@ -194,7 +196,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { settingsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(269, 25);
+            menuStrip1.Size = new Size(277, 25);
             menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -262,11 +264,32 @@
             clickNumber.TabIndex = 16;
             clickNumber.Text = "clickNumber";
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(181, 41);
+            label7.Name = "label7";
+            label7.Size = new Size(32, 17);
+            label7.TabIndex = 17;
+            label7.Text = "毫秒";
+            // 
+            // clickNumCheckBox
+            // 
+            clickNumCheckBox.AutoSize = true;
+            clickNumCheckBox.Location = new Point(182, 76);
+            clickNumCheckBox.Name = "clickNumCheckBox";
+            clickNumCheckBox.Size = new Size(75, 21);
+            clickNumCheckBox.TabIndex = 18;
+            clickNumCheckBox.Text = "统计次数";
+            clickNumCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(269, 277);
+            ClientSize = new Size(277, 277);
+            Controls.Add(clickNumCheckBox);
+            Controls.Add(label7);
             Controls.Add(clickNumber);
             Controls.Add(label5);
             Controls.Add(lastEndTime);
@@ -325,5 +348,7 @@
         private Label lastEndTime;
         private Label label5;
         private Label clickNumber;
+        private Label label7;
+        private CheckBox clickNumCheckBox;
     }
 }
