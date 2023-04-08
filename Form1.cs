@@ -68,7 +68,6 @@ namespace MouseClick
         {
             if (isStart == false)
             {
-                isStart = true;
                 bool start_or_end = false;
                 uint downFlag = MOUSEEVENTF_LEFTDOWN,
                      upFlag = MOUSEEVENTF_LEFTUP;
@@ -86,6 +85,8 @@ namespace MouseClick
                 }
                 if (start_or_end && IntervalTime.Text.Length > 0)
                 {
+                    isStart = true;
+                    mesg.Text = "";
                     startTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     radioLeft.Enabled = false;
                     radioRgiht.Enabled = false;

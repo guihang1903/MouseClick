@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             StartClick = new Button();
             IntervalTime = new TextBox();
@@ -41,6 +42,10 @@
             label3 = new Label();
             clickCount = new TextBox();
             label4 = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            简体中文ToolStripMenuItem = new ToolStripMenuItem();
+            englishToolStripMenuItem = new ToolStripMenuItem();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // StartClick
@@ -125,7 +130,7 @@
             // 
             mesg.AutoSize = true;
             mesg.ForeColor = Color.Red;
-            mesg.Location = new Point(84, 8);
+            mesg.Location = new Point(23, 219);
             mesg.Name = "mesg";
             mesg.Size = new Size(0, 17);
             mesg.TabIndex = 8;
@@ -155,11 +160,29 @@
             label4.TabIndex = 11;
             label4.Text = "点击次数";
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { 简体中文ToolStripMenuItem, englishToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(125, 48);
+            // 
+            // 简体中文ToolStripMenuItem
+            // 
+            简体中文ToolStripMenuItem.Name = "简体中文ToolStripMenuItem";
+            简体中文ToolStripMenuItem.Size = new Size(124, 22);
+            简体中文ToolStripMenuItem.Text = "简体中文";
+            // 
+            // englishToolStripMenuItem
+            // 
+            englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            englishToolStripMenuItem.Size = new Size(124, 22);
+            englishToolStripMenuItem.Text = "English";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(265, 247);
+            ClientSize = new Size(274, 250);
             Controls.Add(label4);
             Controls.Add(clickCount);
             Controls.Add(label3);
@@ -172,11 +195,14 @@
             Controls.Add(label1);
             Controls.Add(IntervalTime);
             Controls.Add(StartClick);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "鼠标连点器 By袁鹏";
             FormClosing += Form1_FormClosing;
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -195,5 +221,8 @@
         private Label label3;
         private TextBox clickCount;
         private Label label4;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem 简体中文ToolStripMenuItem;
+        private ToolStripMenuItem englishToolStripMenuItem;
     }
 }
