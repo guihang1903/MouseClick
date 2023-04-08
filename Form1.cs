@@ -7,6 +7,10 @@ namespace MouseClick
         public Form1()
         {
             InitializeComponent();
+            mesg.Text = "";
+            startTime.Text = "";
+            lastEndTime.Text = "";
+            clickNumber.Text = "0";
             // 设置键盘钩子
             _keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookCallback, IntPtr.Zero, 0);
         }
@@ -14,6 +18,22 @@ namespace MouseClick
         // 导入 Windows API 函数
         [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, IntPtr dwExtraInfo);
+
+        // 导入 user32.dll 中的方法
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        // 导入 user32.dll 中的方法
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        // 导入 user32.dll 中的方法
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        // 委托类型 HookProc
+        private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         // 鼠标事件常量
         private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -27,6 +47,9 @@ namespace MouseClick
         private bool isRunning = false, isStart = false;
         // 键盘钩子句柄
         private IntPtr _keyboardHook;
+        //语言设置
+        private string language = "chinese";
+        private long clickNum = 0;
 
         // 键盘钩子回调函数
         private static IntPtr KeyboardHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
@@ -47,22 +70,6 @@ namespace MouseClick
             }
             return CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
         }
-
-        // 导入 user32.dll 中的方法
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);
-
-        // 导入 user32.dll 中的方法
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        // 导入 user32.dll 中的方法
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        // 委托类型 HookProc
-        private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         private void Start_Click(object sender, EventArgs e)
         {
@@ -87,6 +94,7 @@ namespace MouseClick
                 {
                     isStart = true;
                     mesg.Text = "";
+                    clickNum = 0;
                     startTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     radioLeft.Enabled = false;
                     radioRgiht.Enabled = false;
@@ -109,7 +117,9 @@ namespace MouseClick
                                 mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
                                 Task.Delay(delay).Wait();
                                 count--;
+                                clickNumber.Text = (++clickNum).ToString();
                             }
+                            EndClick.PerformClick();
                         });
                     }
                     else
@@ -121,13 +131,25 @@ namespace MouseClick
                                 mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
                                 mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
                                 Task.Delay(delay).Wait();
+                                clickNumber.Text = (++clickNum).ToString();
                             }
                         });
                     }
                 }
                 else
                 {
-                    mesg.Text = "未选择点击方式或未输入点击间隔!";
+                    switch (language)
+                    {
+                        case "chinese":
+                            mesg.Text = "请输入点击间隔或点击方法!";
+                            break;
+                        case "english":
+                            mesg.Text = "Input interval or method!";
+                            break;
+                        default:
+                            mesg.Text = "请输入点击间隔或点击方法!";
+                            break;
+                    }
                 }
             }
         }
@@ -145,6 +167,7 @@ namespace MouseClick
                 EndClick.Enabled = false;
                 StartClick.Enabled = true;
                 isRunning = false;
+                lastEndTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
         }
 
@@ -152,6 +175,41 @@ namespace MouseClick
         {
             // 关闭键盘钩子
             UnhookWindowsHookEx(_keyboardHook);
+        }
+
+        private void ChineseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            language = "chinese";
+            label1.Text = "点击间隔";
+            label2.Text = "点击次数";
+            label3.Text = "点击方式";
+            label4.Text = "开始时间";
+            label5.Text = "点击次数";
+            label6.Text = "上次结束时间";
+            radioLeft.Text = "左键";
+            radioRgiht.Text = "右键";
+            StartClick.Text = "开始点击(F9)";
+            EndClick.Text = "停止点击(F10)";
+            settingsToolStripMenuItem.Text = "设置";
+            languageToolStripMenuItem.Text = "语言";
+
+        }
+
+        private void EnglishToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            language = "english";
+            label1.Text = "interval";
+            label2.Text = "Number";
+            label3.Text = "method";
+            label4.Text = "Start time";
+            label5.Text = "Click number";
+            label6.Text = "Last stoptime";
+            radioLeft.Text = "Left";
+            radioRgiht.Text = "Right";
+            StartClick.Text = "Start(F9)";
+            EndClick.Text = "Stop(F10)";
+            settingsToolStripMenuItem.Text = "Settings";
+            languageToolStripMenuItem.Text = "Language";
         }
     }
 }
