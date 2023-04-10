@@ -76,6 +76,7 @@ namespace MouseClick
         {
             if (isStart == false)
             {
+                lastEndTime.Text = "";
                 bool start_or_end = false;
                 uint downFlag = MOUSEEVENTF_LEFTDOWN,
                      upFlag = MOUSEEVENTF_LEFTUP;
@@ -122,21 +123,24 @@ namespace MouseClick
                                 {
                                     mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
                                     mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                    Task.Delay(delay).Wait();
+                                    //Task.Delay(delay).Wait();
+                                    Thread.Sleep(delay);
                                     count--;
                                     clickNumber.Text = (++clickNum).ToString();
                                 }
                                 EndClick.PerformClick();
                             });
                         }
-                        else {
+                        else
+                        {
                             Task.Run(() =>
                             {
                                 while (isRunning && count > 0)
                                 {
                                     mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
                                     mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                    Task.Delay(delay).Wait();
+                                    //Task.Delay(delay).Wait();
+                                    Thread.Sleep(delay);
                                     count--;
                                 }
                                 EndClick.PerformClick();
@@ -154,19 +158,22 @@ namespace MouseClick
                                 {
                                     mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
                                     mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                    Task.Delay(delay).Wait();
+                                    //Task.Delay(delay).Wait();
+                                    Thread.Sleep(delay);
                                     clickNumber.Text = (++clickNum).ToString();
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             Task.Run(() =>
                             {
                                 while (isRunning)
                                 {
                                     mouse_event(downFlag, 0, 0, 0, (IntPtr)0);
                                     mouse_event(upFlag, 0, 0, 0, (IntPtr)0);
-                                    Task.Delay(delay).Wait();
+                                    //Task.Delay(delay).Wait();
+                                    Thread.Sleep(delay);
                                 }
                             });
                         }
@@ -195,7 +202,6 @@ namespace MouseClick
             if (isStart)
             {
                 isStart = false;
-                startTime.Text = "";
                 radioLeft.Enabled = true;
                 radioRgiht.Enabled = true;
                 IntervalTime.Enabled = true;
@@ -221,7 +227,7 @@ namespace MouseClick
             label3.Text = "点击方式";
             label4.Text = "开始时间";
             label5.Text = "点击次数";
-            label6.Text = "上次结束时间";
+            label6.Text = "结束时间";
             label7.Text = "毫秒";
             clickNumCheckBox.Text = "开启统计";
             radioLeft.Text = "左键";
@@ -241,7 +247,7 @@ namespace MouseClick
             label3.Text = "method";
             label4.Text = "Start time";
             label5.Text = "Click number";
-            label6.Text = "Last stoptime";
+            label6.Text = "Stop time";
             label7.Text = "ms";
             clickNumCheckBox.Text = "Statistics";
             radioLeft.Text = "Left";

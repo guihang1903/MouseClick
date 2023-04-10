@@ -196,7 +196,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { settingsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(277, 25);
+            menuStrip1.Size = new Size(279, 25);
             menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -231,16 +231,16 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(22, 248);
+            label6.Location = new Point(22, 222);
             label6.Name = "label6";
-            label6.Size = new Size(80, 17);
+            label6.Size = new Size(56, 17);
             label6.TabIndex = 13;
-            label6.Text = "上次结束时间";
+            label6.Text = "结束时间";
             // 
             // lastEndTime
             // 
             lastEndTime.AutoSize = true;
-            lastEndTime.Location = new Point(113, 248);
+            lastEndTime.Location = new Point(113, 222);
             lastEndTime.Name = "lastEndTime";
             lastEndTime.Size = new Size(78, 17);
             lastEndTime.TabIndex = 14;
@@ -249,7 +249,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(22, 220);
+            label5.Location = new Point(22, 250);
             label5.Name = "label5";
             label5.Size = new Size(56, 17);
             label5.TabIndex = 15;
@@ -258,7 +258,7 @@
             // clickNumber
             // 
             clickNumber.AutoSize = true;
-            clickNumber.Location = new Point(113, 220);
+            clickNumber.Location = new Point(113, 250);
             clickNumber.Name = "clickNumber";
             clickNumber.Size = new Size(81, 17);
             clickNumber.TabIndex = 16;
@@ -287,7 +287,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(277, 277);
+            ClientSize = new Size(279, 290);
             Controls.Add(clickNumCheckBox);
             Controls.Add(label7);
             Controls.Add(clickNumber);
