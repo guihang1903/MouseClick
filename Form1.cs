@@ -12,7 +12,7 @@ namespace MouseClick
             startTime.Text = "";
             lastEndTime.Text = "";
             clickNumber.Text = "";
-            // 设置键盘钩子
+            // 设置键盘钩子 
             _keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookCallback, IntPtr.Zero, 0);
         }
 
